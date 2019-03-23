@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.18.10",
+    "ws": "^6.2.0"
   }
 }
