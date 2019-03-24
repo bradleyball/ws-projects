@@ -5,12 +5,17 @@
   "main": "ws.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ws.js"
+    "start": "node ws.js",
+    "dev": "nodemon"
   },
   "dependencies": {
-    "nodemon": "^1.18.10",
+   
     "ws": "^6.2.0"
   },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  },
+
   "author": "",
   "license": "ISC"
 }
