@@ -5,6 +5,18 @@ socket.on("connect", () => {
   console.log(socket.id);
 });
 
+socket.on("nsList", nsData => {
+  console.log("The list of namespaces has arrived");
+  console.log(nsData);
+  let namespacesDiv = document.querySelector(".namespaces");
+  namespacesDiv.innerHTML = "";
+  nsData.forEach(ns => {
+    namespacesDiv.innerHTML += `<div class="namespace"><img src="${
+      ns.img
+    }"></div>`;
+  });
+});
+
 socket.on("messageFromServer", dataFromServer => {
   console.log(dataFromServer);
   socket.emit("messageToServer", { data: "Data from client" });

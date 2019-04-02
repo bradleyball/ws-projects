@@ -11,17 +11,14 @@ const expressServer = app.listen(9000, () => {
 
 const io = socketio(expressServer);
 
-//loop trough each namespace and listen for a connection
-
 io.on("connection", socket => {
-  socket.emit("messageFromServer", { data: "Welcome to the socketio server" });
-  socket.on("messageToServer", dataFromClient => {
-    console.log(dataFromClient);
+  let nsData = namespaces.map(ns => {
+    return {
+      img: ns.img,
+      endpoint: ns.endpoint
+    };
   });
-  socket.join("level1");
-  io.of("/")
-    .to("level1")
-    .emit("joined", `${socket.id} says: I have joined the level one room`);
+  socket.emit("nsList", nsData);
 });
 
 namespaces.forEach(namespace => {
