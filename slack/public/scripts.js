@@ -11,7 +11,7 @@ socket2.on("connect", () => {
   console.log(socket.id);
 });
 
-socket2.on("welcome", msg => {
+socket.on("welcome", msg => {
   console.log(msg);
 });
 

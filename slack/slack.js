@@ -12,11 +12,6 @@ const expressServer = app.listen(9000, () => {
 const io = socketio(expressServer);
 
 //loop trough each namespace and listen for a connection
-namespaces.forEach(namespace => {
-  io.of(namespace.endpoint).on("connection", socket => {
-    console.log(`${socket.id} has joined ${namespace.endpoint}`);
-  });
-});
 
 io.on("connection", socket => {
   socket.emit("messageFromServer", { data: "Welcome to the socketio server" });
@@ -29,7 +24,8 @@ io.on("connection", socket => {
     .emit("joined", `${socket.id} says: I have joined the level one room`);
 });
 
-io.of("/admin").on("connection", socket => {
-  console.log("Someone connected to admin namespace.");
-  io.of("/admin").emit("welcome", "welcome to the admin channel");
+namespaces.forEach(namespace => {
+  io.of(namespace.endpoint).on("connection", socket => {
+    console.log(`${socket.id} has joined ${namespace.endpoint}`);
+  });
 });
