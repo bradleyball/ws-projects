@@ -15,11 +15,10 @@ io.on("connection", socket => {
   socket.on("messageToServer", dataFromClient => {
     console.log(dataFromClient);
   });
-  socket.on("newMessageToServer", msg => {
-    // console.log(msg);
-    // io.emit("messageToClients", { text: msg.text });
-    io.of("/").emit("messageToClients", { text: msg.text });
-  });
+  socket.join("level1");
+  io.of("/")
+    .to("level1")
+    .emit("joined", `${socket.id} says: I have joined the level one room`);
 });
 
 io.of("/admin").on("connection", socket => {
