@@ -15,6 +15,8 @@ socket.on("nsList", nsData => {
       ns.img
     }"></div>`;
   });
+
+  Array.from(document.getElementsByClassName("namespace")).forEach(i => i);
 });
 
 socket.on("messageFromServer", dataFromServer => {
