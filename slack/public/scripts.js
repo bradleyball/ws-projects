@@ -18,7 +18,17 @@ socket.on("nsList", nsData => {
 
   Array.from(document.getElementsByClassName("namespace")).forEach(i => {
     i.addEventListener("click", e => {
-      console.log(e.target);
+      const nsEndpoint = i.getAttribute("ns");
+      console.log(`${nsEndpoint} I should go to now`);
+    });
+  });
+  const nsSocket = io("http://localhost:9000/wiki");
+  nsSocket.on("nsRoomLoad", nsRooms => {
+    let roomList = document.querySelector(".room-list");
+    roomList.innerHTML = "";
+    nsRooms.forEach(room => {
+      roomList.innerHTML += ` <li><span class="glyphicon glyphicon-lock">
+                              </span>Main Room</li>`;
     });
   });
 });
