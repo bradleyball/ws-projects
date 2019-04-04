@@ -27,8 +27,16 @@ socket.on("nsList", nsData => {
     let roomList = document.querySelector(".room-list");
     roomList.innerHTML = "";
     nsRooms.forEach(room => {
-      roomList.innerHTML += ` <li><span class="glyphicon glyphicon-lock">
-                              </span>Main Room</li>`;
+      let glyph;
+      room.privateRoom ? (glyph = "lock") : (glyph = "globe");
+      roomList.innerHTML += ` <li class="room"><span class="glyphicon glyphicon-${glyph}">
+                              </span>${room.roomTitle}</li>`;
+    });
+    let roomNodes = document.getElementsByClassName("room");
+    Array.from(roomNodes).forEach(elem => {
+      elem.addEventListener("click", e => {
+        console.log("Someone clicked on", e.target.innerHTML);
+      });
     });
   });
 });
