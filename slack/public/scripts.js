@@ -6,15 +6,16 @@ socket.on("nsList", nsData => {
   let namespacesDiv = document.querySelector(".namespaces");
   namespacesDiv.innerHTML = "";
   nsData.forEach(ns => {
-    namespacesDiv.innerHTML += `<div class="namespace ns=${
+    namespacesDiv.innerHTML += `<div class="namespace" ns=${
       ns.endpoint
-    }"><img src="${ns.img}"/></div>`;
+    }><img src="${ns.img}"/></div>`;
+    console.log(namespacesDiv);
   });
 
   Array.from(document.getElementsByClassName("namespace")).forEach(i => {
     i.addEventListener("click", e => {
       const nsEndpoint = i.getAttribute("ns");
-      console.log(`${nsEndpoint} I should go to now`);
+      joinNs(nsEndpoint);
     });
   });
   joinNs("/wiki");
