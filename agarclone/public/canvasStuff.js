@@ -5,9 +5,9 @@ function init() {
 // =================================
 // -------   DRAWING ---------------
 // =================================
-let randomX = Math.floor(500 * Math.random() + 10);
-let randomY = Math.floor(500 * Math.random() + 10);
-console.log(randomX);
+player.locX = Math.floor(500 * Math.random() + 10);
+player.locY = Math.floor(500 * Math.random() + 10);
+
 function draw() {
   context.beginPath();
   context.fillStyle = "rgb(255,0,0)";
@@ -21,7 +21,7 @@ function draw() {
 }
 
 canvas.addEventListener("mousemove", event => {
-  console.log(event);
+  //   console.log(event);
   const mousePosition = {
     x: event.clientX,
     y: event.clientY
