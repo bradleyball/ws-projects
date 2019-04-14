@@ -19,3 +19,7 @@ function draw() {
   context.stroke();
   requestAnimationFrame(draw);
 }
+
+canvas.addEventListener("mousemove", event => {
+  console.log(event);
+});
