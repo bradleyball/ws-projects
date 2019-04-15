@@ -12,7 +12,7 @@ function draw() {
   context.clearRect(0, 0, canvas.width, canvas.height);
   context.setTransform(1, 0, 0, 1, 0, 0);
   const camX = -player.locX + canvas.width / 2;
-  const camY = -player.locX + canvas.height / 2;
+  const camY = -player.locY + canvas.height / 2;
   context.translate(camX, camY);
 
   context.beginPath();
