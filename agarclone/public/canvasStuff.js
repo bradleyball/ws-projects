@@ -5,7 +5,6 @@ player.locX = Math.floor(500 * Math.random() + 100);
 player.locY = Math.floor(500 * Math.random() + 100);
 
 function draw() {
-  console.log(player.locX, player.locY);
   context.setTransform(1, 0, 0, 1, 0, 0);
   context.clearRect(0, 0, canvas.width, canvas.height);
   const camX = -player.locX + canvas.width / 2;
@@ -18,7 +17,7 @@ function draw() {
     context.beginPath();
     context.fillStyle = p.color;
 
-    context.arc(p.locX, p.locY, 10, 0, Math.PI * 2);
+    context.arc(p.locX, p.locY, p.radius, 0, Math.PI * 2);
 
     context.fill();
     context.lineWidth = 3;
