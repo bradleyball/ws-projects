@@ -1,8 +1,3 @@
-function init() {
-  draw();
-  console.log(orbs);
-}
-
 // =================================
 // -------   DRAWING ---------------
 // =================================
@@ -16,15 +11,19 @@ function draw() {
   const camY = -player.locY + canvas.height / 2;
   context.translate(camX, camY);
 
-  context.beginPath();
-  context.fillStyle = "rgb(255,0,0)";
+  // ============ Draw all Players ===============================
 
-  context.arc(player.locX, player.locY, 10, 0, Math.PI * 2);
+  players.forEach(p => {
+    context.beginPath();
+    context.fillStyle = p.color;
 
-  context.fill();
-  context.lineWidth = 3;
-  context.strokeStyle = "rgb(0,255,0)";
-  context.stroke();
+    context.arc(p.locX, p.locY, 10, 0, Math.PI * 2);
+
+    context.fill();
+    context.lineWidth = 3;
+    context.strokeStyle = "rgb(0,255,0)";
+    context.stroke();
+  });
 
   // ================ Orbs coming from server ==================
 

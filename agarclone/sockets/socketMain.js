@@ -16,9 +16,15 @@ let settings = {
   worldHeight: 500
 };
 initGame();
+setInterval(() => {
+  io.to("game").emit("tock", {
+    players
+  });
+}, 33);
 
 io.sockets.on("connect", socket => {
   socket.on("init", data => {
+    socket.join("game");
     let playerConfig = new PlayerConfig(settings);
     let playerData = new PlayerData(data.playerName, settings);
     let player = new Player(socket.id, playerConfig, playerData);
