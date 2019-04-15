@@ -1,5 +1,9 @@
 const io = require("../server").io;
 const Orb = require("./classes/Orb");
+// ========== CLASSES ======================
+const Player = require("./classes/Player");
+const PlayerData = require("./classes/PlayerData");
+const PlayerConfig = require("./classes/PlayerConfig");
 
 let orbs = [];
 let settings = {
@@ -13,9 +17,9 @@ let settings = {
 initGame();
 
 io.sockets.on("connect", socket => {
-  // let playerConfig = new playerConfig()
-  // let playerData = new playerData()
-  //   let Player = new Player(socket.id, playerConfig, playerData);
+  let playerConfig = new PlayerConfig(settings);
+  let playerData = new PlayerData(null, settings);
+  let player = new Player(socket.id, playerConfig, playerData);
   socket.emit("init", {
     orbs
   });
