@@ -1,5 +1,6 @@
 function init() {
   draw();
+  console.log(orbs);
 }
 
 // =================================
@@ -24,6 +25,16 @@ function draw() {
   context.lineWidth = 3;
   context.strokeStyle = "rgb(0,255,0)";
   context.stroke();
+
+  // ============================== Orbs coming from server =============================
+
+  orbs.forEach(orb => {
+    context.beginPath();
+    context.fillStyle = orb.color;
+    context.arc(orb.locX, orb.locY, orb.radius, 0, Math.PI * 2);
+    context.fill();
+  });
+
   requestAnimationFrame(draw);
 }
 
