@@ -5,14 +5,21 @@ function init() {
 // =================================
 // -------   DRAWING ---------------
 // =================================
-player.locX = Math.floor(500 * Math.random() + 10);
-player.locY = Math.floor(500 * Math.random() + 10);
+player.locX = Math.floor(500 * Math.random() + 100);
+player.locY = Math.floor(500 * Math.random() + 100);
 
 function draw() {
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  context.setTransform(1, 0, 0, 1, 0, 0);
+  const camX = -player.locX + canvas.width / 2;
+  const camY = -player.locX + canvas.height / 2;
+  context.translate(camX, camY);
+
   context.beginPath();
   context.fillStyle = "rgb(255,0,0)";
 
-  context.arc(randomX, randomY, 10, 0, Math.PI * 2);
+  context.arc(player.locX, player.locY, 10, 0, Math.PI * 2);
+  context.arc(200, 200, 10, 0, Math.PI * 2);
   context.fill();
   context.lineWidth = 3;
   context.strokeStyle = "rgb(0,255,0)";
