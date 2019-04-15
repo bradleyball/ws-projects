@@ -1,4 +1,8 @@
 const io = require("../server").io;
+const checkForOrbCollisions = require("./checkCollisions")
+  .checkForOrbCollisions;
+const checkForPlayerCollisions = require("./checkCollisions")
+  .checkForPlayerCollisions;
 const Orb = require("./classes/Orb");
 // ========== CLASSES ======================
 const Player = require("./classes/Player");
@@ -15,12 +19,6 @@ let settings = {
   worldWidth: 500,
   worldHeight: 500
 };
-initGame();
-setInterval(() => {
-  io.to("game").emit("tock", {
-    players
-  });
-}, 33);
 
 io.sockets.on("connect", socket => {
   let player = {};
@@ -31,6 +29,15 @@ io.sockets.on("connect", socket => {
     let playerConfig = new PlayerConfig(settings);
     let playerData = new PlayerData(data.playerName, settings);
     player = new Player(socket.id, playerConfig, playerData);
+
+    initGame();
+    setInterval(() => {
+      io.to("game").emit("tock", {
+        players,
+        playerX: playerData.locX,
+        playerY: playerData.locY
+      });
+    }, 33);
 
     socket.emit("initReturn", {
       orbs

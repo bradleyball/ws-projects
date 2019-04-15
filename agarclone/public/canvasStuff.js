@@ -5,6 +5,7 @@ player.locX = Math.floor(500 * Math.random() + 100);
 player.locY = Math.floor(500 * Math.random() + 100);
 
 function draw() {
+  console.log(player.locX, player.locY);
   context.setTransform(1, 0, 0, 1, 0, 0);
   context.clearRect(0, 0, canvas.width, canvas.height);
   const camX = -player.locX + canvas.width / 2;
