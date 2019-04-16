@@ -32,11 +32,11 @@ io.sockets.on("connect", socket => {
 
     initGame();
     setInterval(() => {
-      io.to("game").emit("tock", {
-        players,
-        playerX: playerData.locX,
-        playerY: playerData.locY
-      });
+      if (players.length > 0) {
+        io.to("game").emit("tock", {
+          players
+        });
+      }
     }, 33);
 
     socket.emit("initReturn", {
@@ -64,25 +64,37 @@ io.sockets.on("connect", socket => {
         player.playerData.locX += speed * xV;
         player.playerData.locY -= speed * yV;
       }
-      let capturedOrb = checkForOrbCollisions(
-        player.playerData,
-        player.playerConfig,
-        orbs,
-        settings
-      );
-      capturedOrb
-        .then(data => {
-          const orbData = {
-            orbIndex: data,
-            newOrb: orbs[data]
-          };
-          // console.log(orbData);
-          io.sockets.emit("orbSwitch", orbData);
-        })
-        .catch(() => {
-          // console.log("no collison");
-        });
     }
+    // ==================== Capture Orb ============
+    let capturedOrb = checkForOrbCollisions(
+      player.playerData,
+      player.playerConfig,
+      orbs,
+      settings
+    );
+    capturedOrb
+      .then(data => {
+        const orbData = {
+          orbIndex: data,
+          newOrb: orbs[data]
+        };
+        // console.log(orbData);
+        io.sockets.emit("orbSwitch", orbData);
+      })
+      .catch(() => {
+        // console.log("no collison");
+      });
+    // ===================== Player Collision =============
+    let playerDeath = checkForPlayerCollisions(
+      player.playerData,
+      player.playerConfig,
+      players
+    );
+    playerDeath
+      .then(data => {
+        console.log("Player collison");
+      })
+      .catch(() => {});
   });
 });
 
