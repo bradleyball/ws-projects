@@ -20,6 +20,16 @@ let settings = {
   worldHeight: 5000
 };
 
+initGame();
+
+setInterval(() => {
+  if (players.length > 0) {
+    io.to("game").emit("tock", {
+      players
+    });
+  }
+}, 33);
+
 io.sockets.on("connect", socket => {
   let player = {};
 
@@ -30,13 +40,11 @@ io.sockets.on("connect", socket => {
     let playerData = new PlayerData(data.playerName, settings);
     player = new Player(socket.id, playerConfig, playerData);
 
-    initGame();
     setInterval(() => {
-      if (players.length > 0) {
-        io.to("game").emit("tock", {
-          players
-        });
-      }
+      socket.emit("tickTock", {
+        playerX: player.playerData.locX,
+        playerY: player.playerData.locY
+      });
     }, 33);
 
     socket.emit("initReturn", {
@@ -88,7 +96,8 @@ io.sockets.on("connect", socket => {
     let playerDeath = checkForPlayerCollisions(
       player.playerData,
       player.playerConfig,
-      players
+      players,
+      player.socketId
     );
     playerDeath
       .then(data => {

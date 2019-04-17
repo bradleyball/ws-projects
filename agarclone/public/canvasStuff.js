@@ -1,8 +1,8 @@
 // =================================
 // -------   DRAWING ---------------
 // =================================
-player.locX = Math.floor(500 * Math.random() + 100);
-player.locY = Math.floor(500 * Math.random() + 100);
+// player.locX = Math.floor(500 * Math.random() + 100);
+// player.locY = Math.floor(500 * Math.random() + 100);
 
 function draw() {
   context.setTransform(1, 0, 0, 1, 0, 0);
