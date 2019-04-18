@@ -104,11 +104,18 @@ io.sockets.on("connect", socket => {
       .then(data => {
         console.log("Player collison");
         io.sockets.emit("updateLeaderBoard", getLeaderBoard());
+        io.sockets.emit("playerDeath", data);
       })
       .catch(() => {});
   });
   socket.on("disconnect", data => {
-    console.log(data);
+    if (player.playerData) {
+      players.forEach((item, i) => {
+        if (item.uid === player.playerData.id) {
+          players.splice(i, 1);
+        }
+      });
+    }
   });
 });
 

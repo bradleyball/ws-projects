@@ -43,3 +43,13 @@ socket.on("updateLeaderBoard", data => {
     <li class="leaderboard-player">${item.name} - ${item.score}</li>`;
   });
 });
+
+socket.on("playerDeath", data => {
+  console.log(`got killed: ${data.died.name}`);
+  document.querySelector("game-message").innerHTML = `${
+    data.died.name
+  } absorbed by${data.killBy.name}`;
+  $("#game-message").css({ "background-color": "#00e6e6", opacity: 1 });
+  $("#game-message").show();
+  $("#game-message").fadeOut(5000);
+});
